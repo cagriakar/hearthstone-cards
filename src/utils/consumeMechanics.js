@@ -1,4 +1,4 @@
-const consumeMechanics = (data) => {
+const consumeMechanics = (data = []) => {
     const mechanicsReducer = (acc, cards) => {
         const { mechanics } = cards;
 

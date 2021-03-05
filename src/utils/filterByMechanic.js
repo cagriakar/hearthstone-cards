@@ -2,7 +2,7 @@ const hasTheMechanic = (chosenMechanicParam) => (mechanicsParam = []) => {
     return mechanicsParam.map(({ name }) => name).includes(chosenMechanicParam);
 };
 
-const consumeByMechanic = (data, chosenMechanic) => {
+const filterByMechanic = (data, chosenMechanic) => {
     const byMechanic = (cards) => {
         const { mechanics } = cards;
 
@@ -11,9 +11,9 @@ const consumeByMechanic = (data, chosenMechanic) => {
         return hasChosenMechanic(mechanics);
     };
 
-    const cards = Object.values(data).flat().filter(byMechanic);
+    const cards = data.filter(byMechanic);
 
     return cards;
 };
 
-export default consumeByMechanic;
+export default filterByMechanic;

@@ -1,28 +1,26 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     FlatList,
     SafeAreaView,
     StyleSheet,
     Text,
     TextInput,
-    TouchableHighlight,
     View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import RenderItem from '../../components/RenderItem';
-import searchByName from '../../utils/searchByName';
+import useDebounce from '../../utils/hooks/useDebounce';
+import useSearchByCardName from '../../utils/hooks/useSearchByCardName';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const SearchModalScreen = () => {
-    const { goBack } = useNavigation();
+    // const { goBack } = useNavigation();
 
     const [cardName, setCardName] = useState(null);
-    const [cardList, setCardList] = useState([]);
 
-    useEffect(() => {
-        const foundCardList = searchByName(cardName);
-        setCardList(foundCardList);
-    }, [cardName]);
+    const searchTerm = useDebounce(cardName, 300);
+
+    const { cardList, isLoading } = useSearchByCardName(searchTerm);
 
     const handleOnPress = () => {
         alert('The End');
@@ -56,14 +54,17 @@ const SearchModalScreen = () => {
                     Pull down to turn back
                 </Text>
             </View>
-            <FlatList
-                data={cardList}
-                renderItem={({ item }) => (
-                    <RenderItem item={item} onPress={handleOnPress} />
-                )}
-                keyExtractor={({ cardId }) => cardId}
-                // ItemSeparatorComponent={separatorComponent}
-            />
+            {isLoading && cardName?.length > 0 && <LoadingSpinner />}
+            {cardList && (
+                <FlatList
+                    data={cardList}
+                    renderItem={({ item }) => (
+                        <RenderItem item={item} onPress={handleOnPress} />
+                    )}
+                    keyExtractor={({ cardId }) => cardId}
+                    // ItemSeparatorComponent={separatorComponent}
+                />
+            )}
         </SafeAreaView>
     );
 };

@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import LoadingSpinner from '../../../components/LoadingSpinner';
 
 const CardContainer = ({ item }) => {
     const isImgAvailable = !!item.img;
@@ -51,9 +52,12 @@ const CardContainer = ({ item }) => {
                 >
                     {isImgAvailable ? (
                         <View style={styles.card}>
-                            <ImageBackground
-                                source={{ uri: item?.img }}
+                            <Image
+                                source={{ uri: item.img }}
                                 style={styles.image}
+                                loadingIndicatorSource={[
+                                    require('../../../assets/images/cardBack.png')
+                                ]}
                             />
                         </View>
                     ) : (
