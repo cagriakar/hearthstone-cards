@@ -33,7 +33,6 @@ const SearchModalScreen = () => {
                     name="search"
                     size={25}
                     borderRadius={50}
-                    onPress={() => navigate('SearchModal')}
                     backgroundColor="white"
                     color="#991DB5"
                     style={{ position: 'absolute', left: 30, top: 8 }}
