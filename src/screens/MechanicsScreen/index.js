@@ -16,11 +16,11 @@ const MechanicsScreen = () => {
     };
 
     return (
-        <SafeAreaView>
-            <View>
-                {isLoading && <LoadingSpinner />}
-                {mechanics && (
-                    <>
+        <>
+            {isLoading && <LoadingSpinner />}
+            {mechanics && (
+                <SafeAreaView>
+                    {!isLoading && (
                         <View style={styles.button}>
                             <Icon.Button
                                 name="search"
@@ -32,21 +32,21 @@ const MechanicsScreen = () => {
                                 iconStyle={{ paddingLeft: 0, marginRight: 0 }}
                             />
                         </View>
-                        <FlatList
-                            data={mechanics}
-                            renderItem={({ item }) => (
-                                <RenderItem
-                                    item={item}
-                                    onPress={() => handleOnPress(item)}
-                                />
-                            )}
-                            keyExtractor={(mechanic) => mechanic}
-                            // ItemSeparatorComponent={separatorComponent}
-                        />
-                    </>
-                )}
-            </View>
-        </SafeAreaView>
+                    )}
+                    <FlatList
+                        data={mechanics}
+                        renderItem={({ item }) => (
+                            <RenderItem
+                                item={item}
+                                onPress={() => handleOnPress(item)}
+                            />
+                        )}
+                        keyExtractor={(mechanic) => mechanic}
+                        // ItemSeparatorComponent={separatorComponent}
+                    />
+                </SafeAreaView>
+            )}
+        </>
     );
 };
 
